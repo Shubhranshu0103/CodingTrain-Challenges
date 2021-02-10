@@ -5,7 +5,7 @@ if ( $args.Length -eq 0) {
 
 $ROOT_DIR = (Get-Item (pwd).path).Parent.FullName
 
-$DIR_PREFIX = $ROOT_DIR + "\Coding_Challenge_#"
+$DIR_PREFIX = $ROOT_DIR + "\challenges\Coding_Challenge_#"
 
 $TEMPLATE_PREFIX = $ROOT_DIR + "\init\templates\*"
 
