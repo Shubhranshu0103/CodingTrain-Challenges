@@ -1,7 +1,7 @@
 class Cell {
 
     static CellScale = 10;
-    constructor(i, j) {
+    constructor(i, j, cellColor) {
 
         this.i = i;
         this.j = j;
@@ -12,6 +12,12 @@ class Cell {
             bottom: new Wall(true, 0, 1, 1, 1),
             left: new Wall(true, 0, 0, 0, 1)
         }
+
+        this.visited = false;
+        if (!cellColor)
+            this.fillColor = [0, 0, 0];
+        else
+            this.fillColor = cellColor;
     }
 
 
@@ -21,22 +27,30 @@ class Cell {
 
     show() {
 
-        let x = this.i * Cell.CellScale;
-        let y = this.j * Cell.CellScale;
+        let y = this.i * Cell.CellScale;
+        let x = this.j * Cell.CellScale;
 
+        strokeWeight(2);
         stroke(255);
+
         noFill();
 
         for (let dir in this.walls) {
             if (this.walls[dir].exists) {
-                let wall = this.walls[dir].offset.map(e => e * Cell.CellScale);
-                let x1 = x + wall[0];
-                let y1 = y + wall[1];
-                let x2 = x + wall[2];
-                let y2 = y + wall[3];
+                let wall = this.walls[dir].offset;
+                let x1 = x + wall[0] * Cell.CellScale;
+                let y1 = y + wall[1] * Cell.CellScale;
+                let x2 = x + wall[2] * Cell.CellScale;
+                let y2 = y + wall[3] * Cell.CellScale;
 
                 line(x1, y1, x2, y2);
             }
         }
+
+        noStroke();
+        fill(...this.fillColor);
+        rect(x, y, x + Cell.CellScale, y + Cell.CellScale);
+
+
     }
 }
